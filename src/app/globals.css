@@ -2,9 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
   background-color: #111317;
   color: #ffffff;
+  transition-property: opacity, background, transform, filter;
+  transition-duration: 500ms;
+}
+
+.page-transition {
+  opacity: 0;
+  transform: translateX(-10%);
+  filter: blur(5px);
 }
 
 .screen {

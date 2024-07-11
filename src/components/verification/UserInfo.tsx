@@ -34,7 +34,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user, setUser, onSent }) => {
       setIsSending(true);
 
       // Sending code
-      const codeSent = await sendVerificationCode(user.email);
+      const codeSent = await sendVerificationCode(user);
 
       // If sent
       if (codeSent) {

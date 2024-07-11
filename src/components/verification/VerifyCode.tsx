@@ -79,7 +79,7 @@ const VerifyCode: React.FC<VerifyCodeProps> = ({
       />
 
       {/* BUTTON TO RESEND CODE */}
-      <ResendCode email={user.email} />
+      <ResendCode user={user} />
     </FormLayout>
   );
 };

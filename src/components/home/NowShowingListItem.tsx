@@ -1,6 +1,6 @@
 import MovieProps from "@/props/MovieProps";
-import Link from "next/link";
 import React from "react";
+import AnimationLink from "../shared/AnimationLink";
 import MoviePoster from "../shared/MoviePoster";
 
 // Props
@@ -33,8 +33,8 @@ const NowShowingListItem: React.FC<NowShowingListItemProps> = ({
         <p className="my-2 text-xl md:text-2xl font-bold">{movie.title}</p>
         <div>
           {/* RENDERING ACTION BUTTONS */}
-          <ButtonLayout href="/" label="Book now" />
-          <ButtonLayout href="/" label="Movie Details" />
+          <ButtonLayout href={`/movies/${movie._id}?show=showtimes`} label="Book now" />
+          <ButtonLayout href={`/movies/${movie._id}?show=details`} label="Movie Details" />
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@ interface ButtonLayoutProps {
 
 // Component for rendering action buttons
 const ButtonLayout: React.FC<ButtonLayoutProps> = ({ href, label }) => (
-  <Link href={href}>
+  <AnimationLink href={href}>
     <button className="px-2 py-1 rounded-md bg-blue-600 mr-1 mt-1">{label}</button>
-  </Link>
+  </AnimationLink>
 );

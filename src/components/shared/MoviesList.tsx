@@ -4,6 +4,7 @@ import MoviePoster from "./MoviePoster";
 import MovieProps from "@/props/MovieProps";
 import Link from "next/link";
 import ScrollButton from "./ScrollButton";
+import AnimationLink from "./AnimationLink";
 
 // Props
 interface MoviesListProps {
@@ -62,13 +63,13 @@ const MoviesList: React.FC<MoviesListProps> = ({ id, movies, variant }) => {
         ref={scrollContainerRef}
       >
         {movies.map((movie) => (
-          <Link
+          <AnimationLink
             key={movie._id}
             href={`/movies/${movie._id}`}
             className="flex-shrink-0"
           >
             <MoviePoster url={movie.poster_path} className="w-36 md:w-48" />
-          </Link>
+          </AnimationLink>
         ))}
       </div>
 

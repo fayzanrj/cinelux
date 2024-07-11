@@ -14,7 +14,6 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = credentials;
 
-          console.log({user})
           // Returing
           if (user) {
             return user;

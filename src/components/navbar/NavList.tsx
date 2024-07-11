@@ -2,15 +2,15 @@
 import NavLinks from "@/constants/NavLinks";
 import getBgColor from "@/libs/GetBgColor";
 import NavProps from "@/props/NavProps";
-import Link from "next/link";
 import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
+import AnimationLink from "../shared/AnimationLink";
 
 // List item
 const NavListItem: React.FC<NavProps> = ({ label, href }) => (
   <li className="text-center my-5 py-3 md:py-0 mx-1.5 md:my-0 md:inline-block border-0 hover:border-b-2 duration-200 border-white">
-    <Link href={href}>{label}</Link>
+    <AnimationLink href={href}>{label}</AnimationLink>
   </li>
 );
 

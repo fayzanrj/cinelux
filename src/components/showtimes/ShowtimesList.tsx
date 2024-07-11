@@ -48,7 +48,7 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
       {allShowtimes ? (
         <section>
           <h1 className="text-xl my-8">
-            Showtimes for
+            Showtimes for{" "}
             <span className="font-semibold">{selectedDate.toDateString()}</span>
           </h1>
           {allShowtimes.length > 0 ? (

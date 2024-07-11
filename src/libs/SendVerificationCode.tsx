@@ -1,13 +1,13 @@
+import UserProps from "@/props/UserProps";
 import axios from "axios";
-import { toast } from "sonner";
 import { handleApiError } from "./HandleApiError";
 
-const sendVerificationCode = async (email: string) => {
+const sendVerificationCode = async (user: UserProps) => {
   try {
     // API CALL
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/userAuth/sendCode`,
-      { email },
+      { ...user },
       {
         headers: {
           "Content-Type": "application/json",

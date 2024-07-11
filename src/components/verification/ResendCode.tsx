@@ -1,14 +1,16 @@
 "use client";
 import sendVerificationCode from "@/libs/SendVerificationCode";
+import UserProps from "@/props/UserProps";
+import { UserInfo } from "os";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 // Props
 interface ResendCodeProps {
-  email: string;
+  user : UserProps
 }
 
-const ResendCode: React.FC<ResendCodeProps> = ({ email }) => {
+const ResendCode: React.FC<ResendCodeProps> = ({ user }) => {
   // State to keep track of time
   const [timer, setTimer] = useState(60);
   const [isSending, setIsSending] = useState(false);
@@ -18,7 +20,7 @@ const ResendCode: React.FC<ResendCodeProps> = ({ email }) => {
     try {
       setIsSending(true);
       // Sending code
-      const sent = await sendVerificationCode(email);
+      const sent = await sendVerificationCode(user);
 
       // If code is sent
       if (sent) {
