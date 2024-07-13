@@ -1,8 +1,11 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { handleApiError } from "../../libs/HandleApiError";
 import ShowtimeProps from "../../props/ShowtimeProps";
 import ScreenLoader from "../shared/ScreenLoader";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 // Props
 interface BookTicketsProps {
@@ -13,15 +16,40 @@ interface BookTicketsProps {
 
 const BookTickets: React.FC<BookTicketsProps> = ({
   selectedSeats,
+  showtime,
   onBooking,
 }) => {
   // State for loading
   const [isLoading, setIsLoading] = useState(false);
 
+  // Getting user
+  const session = useSession();
+
+  // Router for navigation
+  const router = useRouter();
+
   // Function to handle click
   const handleClick = async () => {
     try {
       setIsLoading(true);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/bookings/bookTickets/${showtime._id}`,
+        {
+          user: session.data?.user,
+          seats: [...selectedSeats],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            accessToken: process.env.NEXT_PUBLIC_USER_API_ACCESS_TOKEN!,
+          },
+        }
+      );
+
+      // Pushing to checkout payment session
+      if (res.data.session.url) {
+        router.push(res.data.session.url);
+      }
     } catch (error) {
       console.error(error);
       handleApiError(error);

@@ -49,7 +49,9 @@ const ScreenModal: React.FC<ScreenModalProps> = ({
   const showCancel = (props as ScreenModalFormProps).showCancel;
 
   // State
-  const [scrollPosition, setScrollPosition] = useState(window.pageYOffset);
+  const [scrollPosition, setScrollPosition] = useState(
+    typeof window !== "undefined" ? window.pageYOffset : 0
+  );
 
   // Use effect to cover whole screen according to the page offset
   useEffect(() => {

@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import ScreenLoader from "../shared/ScreenLoader";
 import ShowtimeItem from "../shared/ShowtimeItem";
 import DatePicker from "./DatePicker";
+import sortShowsByTime from "@/libs/SortShowsByTime";
 
 // Props
 interface ShowtimesListProps {
@@ -18,7 +19,7 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
   const [selectedDate, setSelectedDate] = useState(date);
   // State to store showstimes
   const [allShowtimes, setAllShowtimes] = useState<ShowtimeProps[] | null>(
-    showtimes
+    showtimes ? sortShowsByTime(showtimes) : null
   );
   // State for loading
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,11 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
       setIsLoading(true);
       setSelectedDate(date);
       const res = await fetchShowtimesByDate(date);
-      setAllShowtimes(res);
+
+      // Sorting shows
+      const sortedShows = res ? sortShowsByTime(res) : null;
+      
+      setAllShowtimes(sortedShows);
     } catch (error) {
       handleApiError(error);
     } finally {
