@@ -7,7 +7,7 @@ export async function middleware(req : NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Check if the path contains /tickets
-  if (pathname.includes("/tickets")) {
+  if (pathname.includes("/tickets") || pathname.includes("/myTickets")) {
     // checking if the user is authenticated
     const token = await getToken({ req });
 
@@ -21,5 +21,5 @@ export async function middleware(req : NextRequest) {
 }
 
 export const config = {
-  matcher: ["/showtimes/:path*"],
+  matcher: ["/showtimes/:path*", "/myTickets"],
 };

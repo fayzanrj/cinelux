@@ -46,7 +46,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   );
 
   return (
-    <section className="max-w-full overflow-x-scroll flex gap-4 my-6 border-b-2 border-gray-700">
+    <section className="max-w-full overflow-x-auto flex gap-4 my-6 border-b-2 border-gray-700">
       {datesArray.map((date) => (
         <button
           key={date.toDateString()}

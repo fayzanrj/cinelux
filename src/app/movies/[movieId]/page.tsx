@@ -1,6 +1,7 @@
 import MovieDetails from "@/components/movies/MovieDetails";
 import SectionSwitcher from "@/components/movies/SectionSwitcher";
 import MoviePoster from "@/components/shared/MoviePoster";
+import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import fetchMovieInfo from "@/libs/fetch/FetchMovieInfo";
 import getBgColor from "@/libs/GetBgColor";
 import MovieProps from "@/props/MovieProps";
@@ -30,16 +31,19 @@ const Movie = async ({ params }: MoviePageProps) => {
   const { movie, showtimes } = res;
 
   return (
-    <main className="p-3">
-      {/* MOVIE TOP SECTION DETAILS */}
-      <MovieDetailsTopSection {...movie} />
+    <>
+      <RemoveAnimationClass q={movie._id} />
+      <main className="p-3">
+        {/* MOVIE TOP SECTION DETAILS */}
+        <MovieDetailsTopSection {...movie} />
 
-      {movie.isBooking ? (
-        <SectionSwitcher movie={movie} showtimes={showtimes} />
-      ) : (
-        <MovieDetails {...movie} />
-      )}
-    </main>
+        {movie.isBooking ? (
+          <SectionSwitcher movie={movie} showtimes={showtimes} />
+        ) : (
+          <MovieDetails {...movie} />
+        )}
+      </main>
+    </>
   );
 };
 

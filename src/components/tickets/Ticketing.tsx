@@ -3,6 +3,7 @@ import ShowtimeProps from "@/props/ShowtimeProps";
 import { useState } from "react";
 import BookTickets from "./BookTickets";
 import Seating from "./Seating";
+import RemoveAnimationClass from "../shared/RemoveAnimationClass";
 
 // Props
 interface TicketingProps {
@@ -24,29 +25,32 @@ const Ticketing: React.FC<TicketingProps> = ({ showtime }) => {
   };
 
   return (
-    <main className="p-3">
-      {/* SHOWTIME DETAILS*/}
-      <ShowtimeTicktingDetails key={showtime._id} {...showtime} />
+    <>
+      <RemoveAnimationClass />
+      <main className="p-3">
+        {/* SHOWTIME DETAILS*/}
+        <ShowtimeTicktingDetails key={showtime._id} {...showtime} />
 
-      {/* SCREEN */}
-      <Screen />
+        {/* SCREEN */}
+        <Screen />
 
-      {/* SEATS */}
-      <Seating
-        selectedSeats={selectedSeats}
-        setSelectedSeats={setSelectedSeats}
-        booked={new Set(showtime.booked || [])}
-      />
-
-      {/* BOOKING BUTTON */}
-      {selectedSeats.size > 0 && (
-        <BookTickets
+        {/* SEATS */}
+        <Seating
           selectedSeats={selectedSeats}
-          onBooking={onBooking}
-          showtime={showtime}
+          setSelectedSeats={setSelectedSeats}
+          booked={new Set(showtime.booked || [])}
         />
-      )}
-    </main>
+
+        {/* BOOKING BUTTON */}
+        {selectedSeats.size > 0 && (
+          <BookTickets
+            selectedSeats={selectedSeats}
+            onBooking={onBooking}
+            showtime={showtime}
+          />
+        )}
+      </main>
+    </>
   );
 };
 

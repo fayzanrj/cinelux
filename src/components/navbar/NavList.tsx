@@ -1,26 +1,20 @@
 "use client";
 import NavLinks from "@/constants/NavLinks";
 import getBgColor from "@/libs/GetBgColor";
-import NavProps from "@/props/NavProps";
 import React, { useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
-import AnimationLink from "../shared/AnimationLink";
-
-// List item
-const NavListItem: React.FC<NavProps> = ({ label, href }) => (
-  <li className="text-center my-5 py-3 md:py-0 mx-1.5 md:my-0 md:inline-block border-0 hover:border-b-2 duration-200 border-white">
-    <AnimationLink href={href}>{label}</AnimationLink>
-  </li>
-);
+import NavbarButton from "./NavbarButton";
+import NavListItem from "./NavListItem";
 
 // Component
 const NavList: React.FC = () => {
   // State to keep track of navbar visibility
   const [isOpen, setIsOpen] = useState(false);
 
-  // Function to open and close navbar
-  const toggleMenu = () => setIsOpen(!isOpen);
+  // Function to open navbar
+  const openNavbar = () => setIsOpen(true);
+
+  // Function to close navbar
+  const closeNavbar = () => setIsOpen(false);
 
   // Styles
   const listStyles =
@@ -29,13 +23,13 @@ const NavList: React.FC = () => {
     "md:h-fit md:border-0 md:bg-transparent md:w-fit md:relative md:inline-block md:mt-0 md:p-0 md:translate-x-0";
 
   return (
-    <div className="relative">
+    <div className="relative inline-block align-middle">
       {/* HAMBURGER BUTTON */}
-      <div className="block md:hidden">
-        <button className="p-2 focus:outline-none" onClick={toggleMenu}>
-          <RxHamburgerMenu size={"1.8rem"} />
-        </button>
-      </div>
+      <NavbarButton
+        variant="HAMBURGER"
+        className="block md:hidden"
+        onClick={openNavbar}
+      />
 
       {/* NAVIGATION MENU*/}
       <ul
@@ -45,15 +39,19 @@ const NavList: React.FC = () => {
         style={getBgColor("primary")}
       >
         {/* CLOSE BUTTON */}
-        <div className="text-right w-full md:hidden">
-          <button className="p-2 focus:outline-none" onClick={toggleMenu}>
-            <IoCloseOutline size={"2rem"} />
-          </button>
-        </div>
+        <NavbarButton
+          variant="CLOSE"
+          className="text-right w-full md:hidden"
+          onClick={closeNavbar}
+        />
 
         {/* NAVIGATION LIST */}
         {NavLinks.map((navLink) => (
-          <NavListItem key={navLink.href} {...navLink} />
+          <NavListItem
+            key={navLink.href}
+            {...navLink}
+            closeNavbar={closeNavbar}
+          />
         ))}
       </ul>
     </div>

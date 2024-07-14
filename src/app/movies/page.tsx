@@ -1,4 +1,5 @@
 import MoviesList from "@/components/shared/MoviesList";
+import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import fetchMoviesByStatus from "@/libs/fetch/FetchMoviesByStatus";
 import React from "react";
 
@@ -24,19 +25,27 @@ const Movies = async ({ searchParams }: MoviesProps) => {
   const movies = await fetchMoviesByStatus(q);
 
   // If some errors occurs during fetching
-  if(!movies) return null
+  if (!movies) return null;
 
   // Determing id based on query (q)
   const getId = () => {
-    switch(q){
-      case "booking_now" : return "BOOKING_NOW"
-      case "coming_soon" : return "COMING_SOON"
-      case "now_showing" : return "NOW_SHOWING"
+    switch (q) {
+      case "booking_now":
+        return "BOOKING_NOW";
+      case "coming_soon":
+        return "COMING_SOON";
+      case "now_showing":
+        return "NOW_SHOWING";
     }
-  }
+  };
 
   // Movies list
-  return <MoviesList movies={movies} id={getId()} variant="PAGE" />;
+  return (
+    <>
+      <RemoveAnimationClass q={q} />
+      <MoviesList movies={movies} id={getId()} variant="PAGE" />
+    </>
+  );
 };
 
 export default Movies;

@@ -34,7 +34,7 @@ const RedirectingCoutdown: React.FC<RedirectingCoutdownProps> = ({
     }
     // Cleaning up interval on component unmount
     return () => clearInterval(interval);
-  }, [timer]);
+  }, [timer,handleRedirect]);
 
   return (
     <div>

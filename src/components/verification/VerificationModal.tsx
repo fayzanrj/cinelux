@@ -10,12 +10,12 @@ import { signIn } from "next-auth/react";
 // Props
 interface VerificationModalProps {
   closeModal: () => void;
-  showtimeId: string;
+  href: string;
 }
 
 const VerificationModal: React.FC<VerificationModalProps> = ({
   closeModal,
-  showtimeId,
+  href,
 }) => {
   // State to keep track if code is sent or not
   const [isCodeSent, setIsCodeSent] = useState(false);
@@ -35,7 +35,7 @@ const VerificationModal: React.FC<VerificationModalProps> = ({
   const handleVerification = async () => {
     closeModal();
     await signIn("credentials", { ...user, redirect: false });
-    router.push(`/showtimes/${showtimeId}/tickets`);
+    router.push(href);
   };
 
   return (

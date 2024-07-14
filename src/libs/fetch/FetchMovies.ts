@@ -1,6 +1,5 @@
 import MovieProps from "@/props/MovieProps";
 import getHeaders from "../GetHeaders";
-import { handleApiError } from "../HandleApiError";
 
 const fetchMovies = async () => {
   const headers = getHeaders();

@@ -57,18 +57,20 @@ const MoviesList: React.FC<MoviesListProps> = ({ id, movies, variant }) => {
 
       {/* MOVIES LIST */}
       <div
-        className={`max-w-[100vw] overflow-x-scroll flex gap-4 p-2 ${
-          variant === "PAGE" ? "flex-wrap" : ""
-        }`}
+        className={
+          variant === "PAGE"
+            ? "p-2  grid gap-2 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-8"
+            : "max-w-[100vw] overflow-x-auto flex gap-4 p-2 mx-auto"
+        }
         ref={scrollContainerRef}
       >
         {movies.map((movie) => (
           <AnimationLink
             key={movie._id}
             href={`/movies/${movie._id}`}
-            className="flex-shrink-0"
+            className="flex-shrink-0 text-center"
           >
-            <MoviePoster url={movie.poster_path} className="w-36 md:w-48" />
+            <MoviePoster url={movie.poster_path} className={variant === "PAGE" ? "w-fit mx-auto" : "w-36 md:w-48 mx-auto"} />
           </AnimationLink>
         ))}
       </div>

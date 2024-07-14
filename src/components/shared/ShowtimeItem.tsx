@@ -1,7 +1,7 @@
 import getBgColor from "@/libs/GetBgColor";
 import ShowtimeProps from "@/props/ShowtimeProps";
 import React from "react";
-import BookProceedButton from "./BookProceedButton";
+import ProceedButton from "./ProceedButton";
 
 // Props
 interface ShowtimeItemProps {
@@ -30,7 +30,7 @@ const ShowtimeItem: React.FC<ShowtimeItemProps> = ({
     </div>
 
     {/* BOOK BUTTON */}
-    <BookProceedButton showtimeId={showtime._id} />
+    <ProceedButton variant="BOOKING" showtimeId={showtime._id} />
   </li>
 );
 
