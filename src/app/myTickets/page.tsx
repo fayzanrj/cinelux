@@ -1,3 +1,5 @@
+import BookingsList from "@/components/myTickets/BookingsList";
+import NoItemsFound from "@/components/shared/NoItemsFound";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import fetchUserBookings from "@/libs/fetch/FetchUserBookings";
 import UserProps from "@/props/UserProps";
@@ -9,10 +11,18 @@ const MyTickets = async () => {
 
   const bookings = await fetchUserBookings(session?.user as UserProps);
 
+  if (!bookings) return <RemoveAnimationClass />;
   return (
     <>
       <RemoveAnimationClass />
-      <div>MyTickets</div>
+      <main className="p-3">
+        <h1 className="mt-2 mb-6 text-3xl font-semibold">MY TICKETS</h1>
+        {bookings.length > 0 ? (
+          <BookingsList bookings={bookings} />
+        ) : (
+          <NoItemsFound label="No bookings found" />
+        )}
+      </main>
     </>
   );
 };

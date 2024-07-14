@@ -7,6 +7,7 @@ import ScreenLoader from "../shared/ScreenLoader";
 import ShowtimeItem from "../shared/ShowtimeItem";
 import DatePicker from "./DatePicker";
 import sortShowsByTime from "@/libs/SortShowsByTime";
+import NoItemsFound from "../shared/NoItemsFound";
 
 // Props
 interface ShowtimesListProps {
@@ -67,9 +68,7 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
               ))}
             </ul>
           ) : (
-            <p className="text-xl font-semibold text-center">
-              No showtimes found
-            </p>
+            <NoItemsFound label="No showtimes found" />
           )}
         </section>
       ) : (

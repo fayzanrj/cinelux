@@ -1,4 +1,5 @@
 "use client";
+import addAnimationClass from "@/libs/AddAnimationClass";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
@@ -20,7 +21,10 @@ const RedirectingCoutdown: React.FC<RedirectingCoutdownProps> = ({
   const router = useRouter();
 
   // Function to redirect
-  const handleRedirect = () => router.push(href);
+  const handleRedirect = async () => {
+    await addAnimationClass(400)
+    router.push(href);
+  };
 
   // Use effect to set timer
   useEffect(() => {
@@ -34,7 +38,7 @@ const RedirectingCoutdown: React.FC<RedirectingCoutdownProps> = ({
     }
     // Cleaning up interval on component unmount
     return () => clearInterval(interval);
-  }, [timer,handleRedirect]);
+  }, [timer]);
 
   return (
     <div>

@@ -51,8 +51,10 @@ const PaymentFailed: React.FC<PaymentFailedProps> = ({ bookingId }) => {
     };
 
     // Calling function
-    bookingFailed();
-  }, [bookingId, router, session]);
+
+    // Calling function
+    if (isLoading) bookingFailed();
+  }, [bookingId]);
 
   if (isLoading)
     return (

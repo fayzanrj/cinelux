@@ -24,8 +24,12 @@ const AnimationLink: React.FC<AnimationLinkProps> = ({
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     e.preventDefault();
-    const currentPath = window.location.pathname;
-    
+
+    // Getting current href
+    const { pathname, search } = window.location;
+    const currentPath = pathname + search;
+
+    // If user is not at href
     if (currentPath !== href) {
       // Adding animation and waiting
       await addAnimationClass(400);

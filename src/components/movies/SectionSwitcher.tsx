@@ -28,7 +28,9 @@ const SectionSwitcher: React.FC<SectionSwitcherProps> = ({
         {/* DETAILS BUTTON */}
         <button
           onClick={() => setSelectedSection("DETAILS")}
-          className="mx-1.5"
+          className={`mx-1.5 ${
+            selectedSection === "DETAILS" ? "border-b border-white" : ""
+          }`}
         >
           Details
         </button>
@@ -36,7 +38,9 @@ const SectionSwitcher: React.FC<SectionSwitcherProps> = ({
         {/* SHOWTIMES BUTTON */}
         <button
           onClick={() => setSelectedSection("SHOWTIMES")}
-          className="mx-1.5"
+          className={`mx-1.5 ${
+            selectedSection === "SHOWTIMES" ? "border-b border-white" : ""
+          }`}
         >
           Showtimes
         </button>

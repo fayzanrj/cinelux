@@ -36,23 +36,25 @@ const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ bookingId }) => {
           }
         );
 
+        console.log({ res });
         setIsLoading(false);
       } catch (error) {
+        console.log({ error });
         // @ts-ignore
-        if(error.response.status === 400){
-            const path = window.location.pathname.split("/")
-            path[4] = `paymentFailed?bookingId=${bookingId}`
-            const newPath = path.join("/")
-            router.push(newPath)
-        } else{
-            router.push('/')
+        if (error.response.status === 400) {
+          const path = window.location.pathname.split("/");
+          path[4] = `paymentFailed?bookingId=${bookingId}`;
+          const newPath = path.join("/");
+          router.push(newPath);
+        } else {
+          router.push("/");
         }
       }
     };
 
     // Calling function
-    verifyBooking();
-  }, [bookingId, router,session]);
+    if (isLoading) verifyBooking();
+  }, [bookingId]);
 
   if (isLoading)
     return (

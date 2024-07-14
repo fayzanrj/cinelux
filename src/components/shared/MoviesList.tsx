@@ -49,17 +49,15 @@ const MoviesList: React.FC<MoviesListProps> = ({ id, movies, variant }) => {
   return (
     <section id={id} className="my-8 relative">
       {/* HEADER BASED ON IF COMPONENT IS BEING USED ON PAGE OR SECTION */}
-      {variant === "SECTION" ? (
+      {variant === "SECTION" && (
         <h3 className="my-1 text-3xl font-semibold">{renderHeading()}</h3>
-      ) : (
-        <h1 className="mt-2 mb-6 text-3xl font-semibold">{renderHeading()}</h1>
       )}
 
       {/* MOVIES LIST */}
       <div
         className={
           variant === "PAGE"
-            ? "p-2  grid gap-2 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-8"
+            ? "p-2 grid gap-2 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-8"
             : "max-w-[100vw] overflow-x-auto flex gap-4 p-2 mx-auto"
         }
         ref={scrollContainerRef}
@@ -70,7 +68,12 @@ const MoviesList: React.FC<MoviesListProps> = ({ id, movies, variant }) => {
             href={`/movies/${movie._id}`}
             className="flex-shrink-0 text-center"
           >
-            <MoviePoster url={movie.poster_path} className={variant === "PAGE" ? "w-fit mx-auto" : "w-36 md:w-48 mx-auto"} />
+            <MoviePoster
+              url={movie.poster_path}
+              className={
+                variant === "PAGE" ? "w-fit mx-auto" : "w-36 md:w-48 mx-auto"
+              }
+            />
           </AnimationLink>
         ))}
       </div>
