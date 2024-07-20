@@ -1,5 +1,6 @@
 import MovieDetails from "@/components/movies/MovieDetails";
 import SectionSwitcher from "@/components/movies/SectionSwitcher";
+import BreadCrumb from "@/components/shared/BreadCrumbs";
 import MoviePoster from "@/components/shared/MoviePoster";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import fetchMovieInfo from "@/libs/fetch/FetchMovieInfo";
@@ -33,7 +34,11 @@ const Movie = async ({ params }: MoviePageProps) => {
   return (
     <>
       <RemoveAnimationClass q={movie._id} />
+
       <main className="p-3">
+        {/* NAVIGATION */}
+        <BreadCrumb currentPage={"MOVIE_DETAILS"} movieTitle={movie.title} />
+
         {/* MOVIE TOP SECTION DETAILS */}
         <MovieDetailsTopSection {...movie} />
 

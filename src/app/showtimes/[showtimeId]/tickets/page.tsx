@@ -1,6 +1,7 @@
+import BreadCrumbs from "@/components/shared/BreadCrumbs";
+import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import Ticketing from "@/components/tickets/Ticketing";
 import fetchShowtimeById from "@/libs/fetch/FetchShowtimeById";
-import React from "react";
 
 // Props
 interface TicketsPageProps {
@@ -22,7 +23,17 @@ const Tickets = async ({ params }: TicketsPageProps) => {
   // If some errors occurs while fetching showtime details
   if (!showtime) return null;
 
-  return <Ticketing showtime={showtime} />;
+  return (
+    <>
+      <RemoveAnimationClass />
+      <main className="p-3">
+        {/* NAVIGATION */}
+        <BreadCrumbs currentPage={"TICKETS"} />
+
+        <Ticketing showtime={showtime} />
+      </main>
+    </>
+  );
 };
 
 export default Tickets;

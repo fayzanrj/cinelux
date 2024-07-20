@@ -1,3 +1,5 @@
+import BreadCrumbs from "@/components/shared/BreadCrumbs";
+import BreadCrumb from "@/components/shared/BreadCrumbs";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import ShowtimesList from "@/components/showtimes/ShowtimesList";
 import fetchShowtimesByDate from "@/libs/fetch/FetchShowtimesByDate";
@@ -15,7 +17,12 @@ const Showtimes = async () => {
   return (
     <>
       <RemoveAnimationClass />
-      <ShowtimesList date={date} showtimes={showtimes} />
+      <main className="p-3">
+        {/* NAVIGATION */}
+        <BreadCrumbs currentPage={"SHOWTIMES"} />
+
+        <ShowtimesList date={date} showtimes={showtimes} />
+      </main>
     </>
   );
 };

@@ -1,4 +1,6 @@
 import BookingsList from "@/components/myTickets/BookingsList";
+import BreadCrumbs from "@/components/shared/BreadCrumbs";
+import BreadCrumb from "@/components/shared/BreadCrumbs";
 import NoItemsFound from "@/components/shared/NoItemsFound";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import fetchUserBookings from "@/libs/fetch/FetchUserBookings";
@@ -15,7 +17,11 @@ const MyTickets = async () => {
   return (
     <>
       <RemoveAnimationClass />
+
       <main className="p-3">
+        {/* NAVIGATION */}
+        <BreadCrumbs currentPage={"MY_TICKETS"} />
+        
         <h1 className="mt-2 mb-6 text-3xl font-semibold">MY TICKETS</h1>
         {bookings.length > 0 ? (
           <BookingsList bookings={bookings} />

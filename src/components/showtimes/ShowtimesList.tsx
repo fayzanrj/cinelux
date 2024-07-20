@@ -1,13 +1,13 @@
 "use client";
 import fetchShowtimesByDate from "@/libs/fetch/FetchShowtimesByDate";
 import { handleApiError } from "@/libs/HandleApiError";
+import sortShowsByTime from "@/libs/SortShowsByTime";
 import ShowtimeProps from "@/props/ShowtimeProps";
 import React, { useState } from "react";
+import NoItemsFound from "../shared/NoItemsFound";
 import ScreenLoader from "../shared/ScreenLoader";
 import ShowtimeItem from "../shared/ShowtimeItem";
 import DatePicker from "./DatePicker";
-import sortShowsByTime from "@/libs/SortShowsByTime";
-import NoItemsFound from "../shared/NoItemsFound";
 
 // Props
 interface ShowtimesListProps {
@@ -34,7 +34,7 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
 
       // Sorting shows
       const sortedShows = res ? sortShowsByTime(res) : null;
-      
+
       setAllShowtimes(sortedShows);
     } catch (error) {
       handleApiError(error);
@@ -44,7 +44,7 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
   };
 
   return (
-    <main className="p-3">
+    <>
       <DatePicker
         initialDate={date}
         numDatesToShow={7}
@@ -78,7 +78,7 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
       )}
 
       {isLoading && <ScreenLoader />}
-    </main>
+    </>
   );
 };
 

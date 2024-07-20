@@ -78,7 +78,7 @@ const ProceedButton: React.FC<ProceedButtonProps> = ({ variant, ...props }) => {
         <VerificationModal
           href={
             variant === "BOOKING"
-              ? "/showtimes/${showtimeId}/tickets`"
+              ? `/showtimes/${showtimeId}/tickets`
               : "/myTickets"
           }
           closeModal={toggleModal}

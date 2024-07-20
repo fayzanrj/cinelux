@@ -1,9 +1,8 @@
+import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import MoviesList from "@/components/shared/MoviesList";
 import NoItemsFound from "@/components/shared/NoItemsFound";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
 import fetchMoviesByStatus from "@/libs/fetch/FetchMoviesByStatus";
-import MovieProps from "@/props/MovieProps";
-import React from "react";
 
 //  Params query type
 type paramsStatus = "booking_now" | "now_showing" | "coming_soon";
@@ -58,6 +57,9 @@ const Movies = async ({ searchParams }: MoviesProps) => {
     <>
       <RemoveAnimationClass q={q} />
       <main className="p-3">
+        {/* NAVIGATION */}
+        <BreadCrumbs currentPage={getId()} />
+        
         <h1 className="mt-2 mb-6 text-3xl font-semibold">{renderHeading()}</h1>
         {movies.length > 0 ? (
           <MoviesList movies={movies} id={getId()} variant="PAGE" />
