@@ -25,7 +25,7 @@ interface ScreenModalLoaderProps extends ScreenModalBaseProps {
   isLoader: true;
 }
 
-// Props for loader Modal
+// Props for simple modal
 interface SimpleModalLoaderProps extends ScreenModalBaseProps {
   isSimpleModal: true;
 }
@@ -48,32 +48,55 @@ const ScreenModal: React.FC<ScreenModalProps> = ({
   const closeModal = (props as ScreenModalFormProps).closeModal;
   const showCancel = (props as ScreenModalFormProps).showCancel;
 
-  // State
+  // States
   const [scrollPosition, setScrollPosition] = useState(
     typeof window !== "undefined" ? window.pageYOffset : 0
   );
+  const [keyboardOffset, setKeyboardOffset] = useState(0);
 
   // Use effect to cover whole screen according to the page offset
   useEffect(() => {
+    // Function to update the scroll position state
     const handleScroll = () => {
       setScrollPosition(window.pageYOffset);
     };
-
+  
+    // Function to handle when the keyboard is opened
+    const handleFocusIn = () => {
+      // Adjusting the keyboardOffset value when the keyboard is opened
+      setKeyboardOffset(200); 
+    };
+  
+    // Function to handle when the keyboard is closed
+    const handleFocusOut = () => {
+      // Resetting the keyboardOffset value when the keyboard is closed
+      setKeyboardOffset(0);
+    };
+  
+    // Disabling scrolling on the main document when the modal is open
     document.documentElement.style.overflow = "hidden";
-
+  
+    // Adding event listeners
     document.addEventListener("scroll", handleScroll);
-
+    window.addEventListener("focusin", handleFocusIn);
+    window.addEventListener("focusout", handleFocusOut);
+  
+    // Cleanup function to remove event listeners and restore scroll behavior
     return () => {
       document.removeEventListener("scroll", handleScroll);
-
+      window.removeEventListener("focusin", handleFocusIn);
+      window.removeEventListener("focusout", handleFocusOut);
+  
+      // Re-enabling scrolling on the main document
       document.documentElement.style.overflow = "auto";
     };
   }, []);
+  
 
   return (
     <div
-      className={`${className} absolute left-0 z-40 flex flex-col items-center justify-center w-full py-6 overflow-y-auto min-h-svh h-svh bg-black/80 PRINT`}
-      style={{ top: `${scrollPosition}px` }}
+      className={`${className} absolute left-0 z-50 flex flex-col items-center justify-center w-full py-6 h-svh bg-black/80 PRINT`}
+      style={{ top: `${scrollPosition - keyboardOffset}px` }}
     >
       {/* CLOSE BUTTON */}
       {(isForm || isSimpleModal) && closeModal && showCancel && (
