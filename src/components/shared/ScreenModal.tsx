@@ -60,38 +60,44 @@ const ScreenModal: React.FC<ScreenModalProps> = ({
     const handleScroll = () => {
       setScrollPosition(window.pageYOffset);
     };
-  
+
     // Function to handle when the keyboard is opened
     const handleFocusIn = () => {
       // Adjusting the keyboardOffset value when the keyboard is opened
-      setKeyboardOffset(200); 
+      setKeyboardOffset(200);
     };
-  
+
     // Function to handle when the keyboard is closed
     const handleFocusOut = () => {
       // Resetting the keyboardOffset value when the keyboard is closed
       setKeyboardOffset(0);
     };
-  
+
     // Disabling scrolling on the main document when the modal is open
     document.documentElement.style.overflow = "hidden";
-  
+
     // Adding event listeners
     document.addEventListener("scroll", handleScroll);
-    window.addEventListener("focusin", handleFocusIn);
-    window.addEventListener("focusout", handleFocusOut);
-  
+
+    // Adding focus event listeners for mobile devices only
+    if (window.innerWidth < 768) {
+      window.addEventListener("focusin", handleFocusIn);
+      window.addEventListener("focusout", handleFocusOut);
+    }
+
     // Cleanup function to remove event listeners and restore scroll behavior
     return () => {
       document.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("focusin", handleFocusIn);
-      window.removeEventListener("focusout", handleFocusOut);
-  
+
+      if (window.innerWidth < 768) {
+        window.removeEventListener("focusin", handleFocusIn);
+        window.removeEventListener("focusout", handleFocusOut);
+      }
+
       // Re-enabling scrolling on the main document
       document.documentElement.style.overflow = "auto";
     };
   }, []);
-  
 
   return (
     <div

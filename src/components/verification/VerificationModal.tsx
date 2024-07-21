@@ -6,6 +6,7 @@ import UserInfo from "./UserInfo";
 import UserProps from "@/props/UserProps";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import addAnimationClass from "@/libs/AddAnimationClass";
 
 // Props
 interface VerificationModalProps {
@@ -35,6 +36,7 @@ const VerificationModal: React.FC<VerificationModalProps> = ({
   const handleVerification = async () => {
     closeModal();
     await signIn("credentials", { ...user, redirect: false });
+    await addAnimationClass(400);
     router.push(href);
   };
 

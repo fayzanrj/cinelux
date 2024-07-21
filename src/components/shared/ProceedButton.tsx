@@ -1,9 +1,9 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import VerificationModal from "../verification/VerificationModal";
 import { useSession } from "next-auth/react";
-import addAnimationClass from "@/libs/AddAnimationClass";
+import React, { useState } from "react";
+import LoggedInUser from "../verification/LoggedInUserModal";
+import VerificationModal from "../verification/VerificationModal";
+import ScreenLoader from "./ScreenLoader";
 
 // Booking Props
 interface ProceedButtonBookingProps {
@@ -28,39 +28,18 @@ const ProceedButton: React.FC<ProceedButtonProps> = ({ variant, ...props }) => {
   // Extracting showtimeId from props
   const showtimeId = (props as ProceedButtonBookingProps).showtimeId || "";
 
-  // Router for navigation
-  const router = useRouter();
-
   // User info
   const session = useSession();
 
   // Function to open and close modal
   const toggleModal = () => setIsModalOpen((prev) => !prev);
 
-  // Function to decide what to do
-  const handleOnClick = async () => {
-    const currentPath = window.location.pathname;
+  // Function to open modal
+  const handleOnClick = async () => setIsModalOpen(true);
 
-    if (session.data?.user && session.status === "authenticated") {
-      // Early exit if user is already at href
-      if (
-        currentPath === "/myTickets" ||
-        currentPath === `/showtimes/${showtimeId}/tickets`
-      )
-        return;
-
-      // Adding animation and waiting
-      await addAnimationClass(400);
-      // Determining where to push the user
-      router.push(
-        variant === "MY_TICKETS"
-          ? "/myTickets"
-          : `/showtimes/${showtimeId}/tickets`
-      );
-    } else {
-      setIsModalOpen(true);
-    }
-  };
+  // Href for redirect
+  const href =
+    variant === "BOOKING" ? `/showtimes/${showtimeId}/tickets` : "/myTickets";
 
   // Function to get label for button
   const getLabel = () => {
@@ -72,18 +51,29 @@ const ProceedButton: React.FC<ProceedButtonProps> = ({ variant, ...props }) => {
     }
   };
 
+  // Function to determine which modal to open
+  const renderModal = () => {
+    switch (session.status) {
+      case "authenticated":
+        return (
+          <LoggedInUser
+            href={href}
+            email={session.data.user?.email || ""}
+            name={session.data.user?.name || ""}
+            closeModal={toggleModal}
+          />
+        );
+      case "unauthenticated":
+        return <VerificationModal href={href} closeModal={toggleModal} />;
+      case "loading":
+        return <ScreenLoader />;
+    }
+  };
+
   return (
     <>
-      {isModalOpen && (
-        <VerificationModal
-          href={
-            variant === "BOOKING"
-              ? `/showtimes/${showtimeId}/tickets`
-              : "/myTickets"
-          }
-          closeModal={toggleModal}
-        />
-      )}
+      {/*   Rendering user modals */}
+      {isModalOpen && renderModal()}
 
       <button
         className="text-sm p-1 bg-blue-700 rounded-md align-middle mx-1"
