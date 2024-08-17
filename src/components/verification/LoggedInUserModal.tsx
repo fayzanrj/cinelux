@@ -32,7 +32,11 @@ const LoggedInUser: React.FC<LoggedInUserProps> = ({
         <UserInformation name={name} email={email} />
 
         {/* ACTION BUTTONS */}
-        <ActionButtons href={href} handleLogout={handleLogout} />
+        <ActionButtons
+          href={href}
+          handleLogout={handleLogout}
+          closeModal={closeModal}
+        />
       </div>
     </ScreenModal>
   );
@@ -53,10 +57,11 @@ const UserInformation: React.FC<{ name: string; email: string }> = ({
 );
 
 // Modal action buttons
-const ActionButtons: React.FC<{ href: string; handleLogout: () => void }> = ({
-  href,
-  handleLogout,
-}) => (
+const ActionButtons: React.FC<{
+  href: string;
+  handleLogout: () => void;
+  closeModal: () => void;
+}> = ({ href, handleLogout, closeModal }) => (
   <div className="w-full mt-10 flex justify-between">
     <button
       onClick={handleLogout}
@@ -66,7 +71,10 @@ const ActionButtons: React.FC<{ href: string; handleLogout: () => void }> = ({
       <IoLogOutOutline className="ml-1.5" size={"1.4rem"} />
     </button>
     <AnimationLink href={href} className="w-1/2">
-      <button className="w-full text-center h-10 bg-blue-700 text-white rounded-lg">
+      <button
+        onClick={closeModal}
+        className="w-full text-center h-10 bg-blue-700 text-white rounded-lg"
+      >
         Continue {"->"}
       </button>
     </AnimationLink>
