@@ -29,7 +29,7 @@ const Movie = async ({ params }: MoviePageProps) => {
   if (!res) return null;
 
   // Destructuring response
-  const { movie, showtimes } = res;
+  const { movie, sortedShowtimesByDate } = res;
 
   return (
     <>
@@ -43,7 +43,7 @@ const Movie = async ({ params }: MoviePageProps) => {
         <MovieDetailsTopSection {...movie} />
 
         {movie.isBooking ? (
-          <SectionSwitcher movie={movie} showtimes={showtimes} />
+          <SectionSwitcher movie={movie} sortedShowtimesByDate={sortedShowtimesByDate} />
         ) : (
           <MovieDetails {...movie} />
         )}

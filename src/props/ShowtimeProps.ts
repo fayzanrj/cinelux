@@ -11,6 +11,11 @@ interface ShowtimeProps {
     booked?: string[]
 }
 
+export interface SortedShowtimeByDateProps{
+    date : string,
+    showtimes :ShowtimeProps[]
+}
+
 export type TimeProps =
     "12:00 AM" | "12:15 AM" | "12:30 AM" | "12:45 AM" |
     "1:00 AM" | "1:15 AM" | "1:30 AM" | "1:45 AM" |

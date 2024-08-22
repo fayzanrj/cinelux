@@ -1,7 +1,6 @@
 "use client";
 import fetchShowtimesByDate from "@/libs/fetch/FetchShowtimesByDate";
 import { handleApiError } from "@/libs/HandleApiError";
-import sortShowsByTime from "@/libs/SortShowsByTime";
 import ShowtimeProps from "@/props/ShowtimeProps";
 import React, { useState } from "react";
 import NoItemsFound from "../shared/NoItemsFound";
@@ -20,7 +19,7 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
   const [selectedDate, setSelectedDate] = useState(date);
   // State to store showstimes
   const [allShowtimes, setAllShowtimes] = useState<ShowtimeProps[] | null>(
-    showtimes ? sortShowsByTime(showtimes) : null
+    showtimes || null
   );
   // State for loading
   const [isLoading, setIsLoading] = useState(false);
@@ -30,12 +29,9 @@ const ShowtimesList: React.FC<ShowtimesListProps> = ({ date, showtimes }) => {
     try {
       setIsLoading(true);
       setSelectedDate(date);
-      const res = await fetchShowtimesByDate(date);
+      const showtimes = await fetchShowtimesByDate(date);
 
-      // Sorting shows
-      const sortedShows = res ? sortShowsByTime(res) : null;
-
-      setAllShowtimes(sortedShows);
+      setAllShowtimes(showtimes || null);
     } catch (error) {
       handleApiError(error);
     } finally {

@@ -1,24 +1,23 @@
-import sortShowsByDate from "@/libs/SortShowsByDate";
-import ShowtimeProps from "@/props/ShowtimeProps";
+import { SortedShowtimeByDateProps } from "@/props/ShowtimeProps";
 import React from "react";
-import ShowtimesListItem from "./ShowtimesSectionItem";
 import NoItemsFound from "../shared/NoItemsFound";
+import ShowtimesListItem from "./ShowtimesSectionItem";
 
 // Props
 interface ShowtimesSectionProps {
-  showtimes: ShowtimeProps[];
+  sortedShowtimesByDate: SortedShowtimeByDateProps[];
 }
 
-const ShowtimesSection: React.FC<ShowtimesSectionProps> = ({ showtimes }) => {
-  // Sorting showtimes, first by their dates and then their time in ascending order
-  const allShowtimes = sortShowsByDate(showtimes);
-
-  const showtimesDate = [...allShowtimes.entries()];
+const ShowtimesSection: React.FC<ShowtimesSectionProps> = ({ sortedShowtimesByDate }) => {
   return (
     <section className="flex justify-center gap-2 flex-wrap">
-      {showtimesDate.length > 0 ? (
-        showtimesDate.map(([date, showtimes]) => (
-          <ShowtimesListItem key={date} date={date} showtimes={showtimes} />
+      {sortedShowtimesByDate.length > 0 ? (
+        sortedShowtimesByDate.map((item) => (
+          <ShowtimesListItem
+            key={item.date}
+            date={item.date}
+            showtimes={item.showtimes}
+          />
         ))
       ) : (
         <NoItemsFound label="No showtimes found" />

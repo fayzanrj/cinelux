@@ -1,9 +1,8 @@
 import MovieProps from "@/props/MovieProps";
-import ShowtimeProps from "@/props/ShowtimeProps";
+import { SortedShowtimeByDateProps } from "@/props/ShowtimeProps";
 import formatDateInDMY from "../FormatDateInDMY";
 import getHeaders from "../GetHeaders";
 import getUtc5 from "../GetUtc5";
-import { handleApiError } from "../HandleApiError";
 
 
 const fetchMovieInfo = async (movieId: string) => {
@@ -15,7 +14,7 @@ const fetchMovieInfo = async (movieId: string) => {
     const response = await fetch(
       `${
         process.env.SERVER_URL
-      }/api/v1/showtimes/getShowtimesByMovieId/${movieId}?date=${formatDateInDMY(
+      }/api/v1/showtimes/getShowtimesAndMovieInfoById/${movieId}?date=${formatDateInDMY(
         date
       )}`,
       {
@@ -27,7 +26,7 @@ const fetchMovieInfo = async (movieId: string) => {
     const res = await response.json();
 
     return {
-      showtimes: res.showtimes as ShowtimeProps[],
+      sortedShowtimesByDate: res.showtimes as SortedShowtimeByDateProps[],
       movie: res.movie as MovieProps,
     };
   } catch (error) {

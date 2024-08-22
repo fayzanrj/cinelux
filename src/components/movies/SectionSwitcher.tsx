@@ -1,6 +1,6 @@
 "use client";
 import MovieProps from "@/props/MovieProps";
-import ShowtimeProps from "@/props/ShowtimeProps";
+import { SortedShowtimeByDateProps } from "@/props/ShowtimeProps";
 import React, { useState } from "react";
 import MovieDetails from "./MovieDetails";
 import ShowtimesSection from "./ShowtimesSection";
@@ -11,12 +11,12 @@ type section = "DETAILS" | "SHOWTIMES";
 // Props
 interface SectionSwitcherProps {
   movie: MovieProps;
-  showtimes: ShowtimeProps[];
+  sortedShowtimesByDate: SortedShowtimeByDateProps[];
 }
 
 const SectionSwitcher: React.FC<SectionSwitcherProps> = ({
   movie,
-  showtimes,
+  sortedShowtimesByDate,
 }) => {
   // State to keep track of the section selected
   const [selectedSection, setSelectedSection] = useState<section>("DETAILS");
@@ -50,7 +50,7 @@ const SectionSwitcher: React.FC<SectionSwitcherProps> = ({
       {selectedSection === "DETAILS" ? (
         <MovieDetails {...movie} />
       ) : (
-        <ShowtimesSection showtimes={showtimes} />
+        <ShowtimesSection sortedShowtimesByDate={sortedShowtimesByDate} />
       )}
     </div>
   );
