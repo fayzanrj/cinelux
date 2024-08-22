@@ -14,7 +14,7 @@ const fetchMovieInfo = async (movieId: string) => {
     const response = await fetch(
       `${
         process.env.SERVER_URL
-      }/api/v1/showtimes/getShowtimesAndMovieInfoById/${movieId}?date=${formatDateInDMY(
+      }/api/v1/showtimes/getShowtimesAndMovieInfoById/${movieId}?startingDate=${formatDateInDMY(
         date
       )}`,
       {

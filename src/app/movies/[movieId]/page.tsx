@@ -3,6 +3,7 @@ import SectionSwitcher from "@/components/movies/SectionSwitcher";
 import BreadCrumb from "@/components/shared/BreadCrumbs";
 import MoviePoster from "@/components/shared/MoviePoster";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
+import ServerError from "@/components/shared/ServerError";
 import fetchMovieInfo from "@/libs/fetch/FetchMovieInfo";
 import getBgColor from "@/libs/GetBgColor";
 import MovieProps from "@/props/MovieProps";
@@ -20,13 +21,13 @@ const Movie = async ({ params }: MoviePageProps) => {
   const { movieId } = params;
 
   // Validating id
-  if (movieId.length !== 24) return null;
+  if (movieId.length !== 24) return  <ServerError/>;
 
   // Fetching movies
   const res = await fetchMovieInfo(movieId);
 
   // If some errors occurs during fetching
-  if (!res) return null;
+  if (!res) return  <ServerError/>;
 
   // Destructuring response
   const { movie, sortedShowtimesByDate } = res;

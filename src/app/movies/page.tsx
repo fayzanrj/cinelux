@@ -2,6 +2,7 @@ import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import MoviesList from "@/components/shared/MoviesList";
 import NoItemsFound from "@/components/shared/NoItemsFound";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
+import ServerError from "@/components/shared/ServerError";
 import fetchMoviesByStatus from "@/libs/fetch/FetchMoviesByStatus";
 
 //  Params query type
@@ -20,13 +21,13 @@ const Movies = async ({ searchParams }: MoviesProps) => {
 
   // Validating query
   if (!q || (q !== "booking_now" && q !== "now_showing" && q !== "coming_soon"))
-    return null;
+    return <ServerError />;
 
   // Fetching movies
   const movies = await fetchMoviesByStatus(q);
 
   // If some errors occurs during fetching
-  if (!movies) return null;
+  if (!movies) return <ServerError />;
 
   // Determing id based on query (q)
   const getId = () => {
@@ -59,7 +60,7 @@ const Movies = async ({ searchParams }: MoviesProps) => {
       <main className="p-3">
         {/* NAVIGATION */}
         <BreadCrumbs currentPage={getId()} />
-        
+
         <h1 className="mt-2 mb-6 text-3xl font-semibold">{renderHeading()}</h1>
         {movies.length > 0 ? (
           <MoviesList movies={movies} id={getId()} variant="PAGE" />

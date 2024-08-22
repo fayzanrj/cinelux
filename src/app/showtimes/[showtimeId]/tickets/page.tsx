@@ -1,5 +1,6 @@
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import RemoveAnimationClass from "@/components/shared/RemoveAnimationClass";
+import ServerError from "@/components/shared/ServerError";
 import Ticketing from "@/components/tickets/Ticketing";
 import fetchShowtimeById from "@/libs/fetch/FetchShowtimeById";
 
@@ -15,7 +16,7 @@ const Tickets = async ({ params }: TicketsPageProps) => {
   const { showtimeId } = params;
 
   // Validating showtime id
-  if (showtimeId.length !== 24) return null;
+  if (showtimeId.length !== 24) return  <ServerError/>;
 
   // Fetching showtime
   const showtime = await fetchShowtimeById(showtimeId);
